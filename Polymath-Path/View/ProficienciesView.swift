@@ -8,19 +8,30 @@
 import SwiftUI
 
 struct ProficienciesView: View {
+    @EnvironmentObject var skillViewModel: SkillViewModel
     var body: some View {
         ScrollView {
             VStack {
-                ForEach(1..<10) { skill in
+                ForEach(skillViewModel.proxySkills) { skill in
                     VStack(alignment: .leading) {
-                        Text("Skill \(skill)")
-                            .font(.title2)
-                            .fontWeight(.semibold)
+                        Button {
+                            // Show subskills
+                        } label: {
+                            HStack {
+                                Text(skill.name)
+                                    .font(.title2)
+                                    .fontWeight(.semibold)
+                                Text(">")
+                                    .font(.title3)
+                                    .bold()
+                            }
+                            .foregroundStyle(.black)
+                        }
                         HStack {
                             ForEach(0..<7) { proficiency in
                                 RoundedRectangle(cornerRadius: 6)
                                     .frame(width: 40, height: 40)
-                                    .foregroundStyle(.gray)
+                                    .foregroundStyle(skill.proficiency > proficiency ? .blue : .gray)
                                     .overlay {
                                         RoundedRectangle(cornerRadius: 6)
                                             .stroke(lineWidth: 4)
@@ -38,4 +49,5 @@ struct ProficienciesView: View {
 
 #Preview {
     ProficienciesView()
+        .environmentObject(SkillViewModel())
 }
