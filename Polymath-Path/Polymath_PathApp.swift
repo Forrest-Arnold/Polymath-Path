@@ -11,7 +11,7 @@ import SwiftUI
 struct Polymath_PathApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginView()
         }
     }
 }
